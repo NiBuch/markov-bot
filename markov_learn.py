@@ -18,8 +18,6 @@ def trigram(words):
 
 
 def main():
-    start1 = "@#$"
-    start2 = "$#@"
     
     # Open our json file to load in old data (for updates)
     with open("json/"+argv[1]+".json") as json_file:
