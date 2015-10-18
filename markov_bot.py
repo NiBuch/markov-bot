@@ -168,7 +168,7 @@ while 1:
             thebest += " THE BEST"
         sendmsg(channel, thebest)
 
-### ChatterBots functions ###
+### Connection Functions ###
 
     # Pong back the server
     if ircmsg.find("PING :") != -1:
