@@ -51,26 +51,37 @@ def load_lang_data(dataset):
 
     return chain_data, punct
 
+# Picks words from a dictionary of word-probability pairs
+def choose_word(probs):
+    x = random.uniform(0,1)*sum(probs.values())
+    cumulative_prob = 0
+    for word in probs:
+        cumulative_prob += probs[word]
+        if x < cumulative_prob:
+            break
+
+    return word
+
 # Used for generating sentences from a lang_data file
 def generate_sentences(dataset, punct, total=0):
     if total:
         lines = range(total)
     else:
-        lines = range(random.randint(1,3))
+        lines = range(random.randint(1,2))
 
     sentence = []
     for x in lines:
         word1 = "@#$"
         word2 = "$#@"
         while True:
-            word1, word2 = word2, random.choice(dataset[word1+" "+word2])
+            word1, word2 = word2, choose_word(dataset[word1+" "+word2])
             if word2 == "#$%":
                 break
             sentence.append(word2)
         if sentence[-1][-1] not in punct:
             sentence[-1] = sentence[-1] + random.choice(punct)
     
-    return u' '.join(sentence).encode('utf-8')
+    return ' '.join(sentence).replace(" ,",",")
 
 # Urban Dictionary Lookups
 def urban(search_term):
