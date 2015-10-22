@@ -19,13 +19,7 @@ def trigram(words):
 
 def main():
     
-    # Open our json file to load in old data (for updates)
-    with open("json/"+argv[1]+".json") as json_file:
-        json_data = json_file.read()
-        try:
-            lang_data = json.loads(json_data)
-        except ValueError:
-            lang_data = {}
+    lang_data = {}
 
     # Open our raw text files to process
     with open("raw_text/"+argv[1]+".raw") as raw_file:
@@ -33,10 +27,13 @@ def main():
             words = line.split()
             for word1, word2, word3 in trigram(words):
                 digram = word1 + " " + word2
-                if digram in lang_data:
-                    lang_data[digram].append(word3)
+                if digram not in lang_data:
+                    lang_data[digram] = {word3: 1}
+                elif word3 not in lang_data[digram]:
+                    lang_data[digram][word3] = 1
                 else:
-                    lang_data[digram] = [word3]
+                    lang_data[digram][word3] += 1
+                    
 
     # Write our chain to a json file
     with open("json/"+argv[1]+".json", "w") as json_file:
