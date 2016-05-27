@@ -119,6 +119,9 @@ ircsock.send("USER %s %s %s :ArbitraryCode Markov Bot\r\n" % (botnick, botnick, 
 cur_lang = 0
 lang_data = 0
 
+# Placeholder for the last received message
+lastmsg = "Do they speak English in what?"
+
 while 1:
 
     # Receive and parse out the latest message
@@ -179,6 +182,10 @@ while 1:
             thebest += " THE BEST"
         sendmsg(channel, thebest)
 
+    # What? Can't hear you
+    if re.search(":w+h*a+t+\?*$",ircmsg,re.IGNORECASE) and ircmsg.find(botnick) == -1:
+        sendmsg(channel, lastmsg.upper())
+
 ### Connection Functions ###
 
     # Pong back the server
@@ -194,3 +201,6 @@ while 1:
         ircsock.send("NICK %s\r\n" % botnick)
         ircsock.send("USER %s %s %s :ArbitraryCode Markov Bot\r\n" % (botnick, botnick, botnick)) # user authentication
         continue
+
+### Message tracking and cleanup ###
+    lastmsg = "".join(ircmsg.split()[3:])[1:]
