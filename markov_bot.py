@@ -183,7 +183,7 @@ while 1:
         sendmsg(channel, thebest)
 
     # What? Can't hear you
-    if re.search(":w+h*a+t+\?*$",ircmsg,re.IGNORECASE) and ircmsg.find(botnick) == -1:
+    if re.search(":(lol)?w+h*[auo]+t+\?*$",ircmsg,re.IGNORECASE) and ircmsg.find(botnick) == -1:
         sendmsg(channel, lastmsg.upper())
 
 ### Connection Functions ###
@@ -203,4 +203,4 @@ while 1:
         continue
 
 ### Message tracking and cleanup ###
-    lastmsg = "".join(ircmsg.split()[3:])[1:]
+    lastmsg = " ".join(ircmsg.split()[3:])[1:]
