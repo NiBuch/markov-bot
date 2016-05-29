@@ -184,7 +184,10 @@ while 1:
 
     # What? Can't hear you
     if re.search(":(lol)?w+h*[auo]+t+\?*$",ircmsg,re.IGNORECASE) and ircmsg.find(botnick) == -1:
-        sendmsg(channel, lastmsg.upper())
+        try:
+            sendmsg(channel, lastmsg.upper())
+        except UnicodeDecodeError:
+            sendmsg(channel, random.choice(["WHAT AIN'T NO COUNTRY I NEVER HEARD OF","DO THEY SPEAK ENGLISH IN WHAT?","SAY 'WHAT' ONE MORE GODDAMN TIME"]))
 
 ### Connection Functions ###
 
