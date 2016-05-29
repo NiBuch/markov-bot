@@ -10,7 +10,8 @@ botnick = "ArbitraryCode"
 #######################
 
 ## Markov chains ##
-chains = ["~4chan_b","~4chan_pol","~4chan_r9k","~4chan_v","~pornhub"]
+chains = ["~4chan_b","~4chan_pol","~4chan_r9k","~4chan_v","~50shades",
+          "~drdre","~eminem","~pornhub","~twilight","~vanillaice","~wutang"]
 
 ## Bot Commands ##
 commands = ["~urban"]
