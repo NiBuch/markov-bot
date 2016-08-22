@@ -14,7 +14,7 @@ chains = ["~4chan_b","~4chan_pol","~4chan_r9k","~4chan_v","~50shades",
           "~drdre","~eminem","~pornhub","~twilight","~vanillaice","~wutang"]
 
 ## Bot Commands ##
-commands = ["~urban"]
+commands = ["~catfacts","~urban"]
 
 # Deal with IRC Ping/Pong transactions
 def ping(pingmsg):
@@ -84,6 +84,17 @@ def generate_sentences(dataset, punct, total=0):
     
     return ' '.join(sentence).replace(" ,",",")
 
+# Catfacts Requests
+##  Uses Manelik's API at http://catfacts-api.appspot.com/
+def catfacts():
+    facts = urllib2.Request("http://catfacts-api.appspot.com/api/facts")
+    try:
+        facts = urllib2.urlopen(facts)
+    except HTTPError as e:
+        return "Error calling catfacts API ("+e.code+")"
+
+    return json.loads(facts.read())['facts'][0]
+
 # Urban Dictionary Lookups
 def urban(search_term):
 
@@ -149,6 +160,9 @@ while 1:
             continue
         elif command == "~urban":
             sendmsg(channel, user + ", " + "".join(urban(ircmsg[4:])))
+            continue
+        elif command == "~catfacts":
+            sendmsg(channel,catfacts())
             continue
 
         # Make sure the user picks a usable makrov chain
