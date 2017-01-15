@@ -4,7 +4,7 @@ from scraper_global import parse_sentences, punct, user_agent
 from sys import argv
 import random, re, urllib2, time
 
-with open("raw_text/4chan_"+argv[1]+".raw", "a") as out_file:
+with open("raw_text/4chan_"+argv[1]+".raw", "w") as out_file:
 
     # Setup the connection
     opener = urllib2.build_opener()
